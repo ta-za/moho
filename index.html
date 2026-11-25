@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohsina Rahman Tayeba | CSE Portfolio — DIU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ==================== CSS VARIABLES & THEME TOKENS ==================== */
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --surface-alt: #f1f5f9;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #eef2ff;
+      --emerald: #059669;
+      --emerald-soft: #ecfdf5;
+      --code-bg: #161822;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    body.dark {
+      --bg: #0f1117;
+      --surface: #171a23;
+      --surface-alt: #1e222d;
+      --border: #2a2f3d;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-soft: rgba(99, 102, 241, 0.14);
+      --emerald: #34d399;
+      --emerald-soft: rgba(52, 211, 153, 0.12);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ==================== BASE & RESET ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-secondary);
+      line-height: 1.65;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ==================== STICKY NAVIGATION BAR ==================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    body.dark header {
+      background-color: rgba(15, 17, 23, 0.88);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--accent);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.85rem;
+    }
+
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .mobile-toggle {
+      display: none;
+    }
+
+    /* Mobile Nav Drawer */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.85rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .mobile-menu a:hover {
+      background: var(--surface);
+      color: var(--accent);
+    }
+
+    /* ==================== BUTTONS ==================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.45rem;
+      border-radius: 10px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      padding: 5rem 0 4.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.95fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1.35rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.15rem, 4.5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin-bottom: 1.65rem;
+    }
+
+    .hero-bio strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      padding: 0.38rem 0.75rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    /* Hero Java Card */
+    .code-card {
+      background: var(--code-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid #282c3e;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.1rem;
+      background: #1e2130;
+      border-bottom: 1px solid #282c3e;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .code-body {
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .kw { color: #c084fc; }
+    .cls { color: #fcd34d; }
+    .str { color: #34d399; }
+    .fn { color: #38bdf8; }
+    .cmt { color: #64748b; }
+
+    /* ==================== SECTION HEADERS ==================== */
+    section {
+      padding: 4.75rem 0;
+    }
+
+    .section-alt {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 2.75rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.45rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 3vw, 2.25rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.65rem;
+    }
+
+    .section-desc {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==================== ABOUT & EDUCATION ==================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 0.98rem;
+    }
+
+    .about-text strong {
+      color: var(--text-primary);
+    }
+
+    .edu-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.65rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .edu-badge {
+      display: inline-block;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+    }
+
+    .edu-card h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-uni {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+
+    .course-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+
+    .course-pills span {
+      font-size: 0.78rem;
+      padding: 0.32rem 0.68rem;
+      border-radius: 7px;
+      background: var(--surface-alt);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    /* ==================== CORE SKILLS & TECH STACK ==================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.55rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.45rem;
+    }
+
+    .skill-card p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-items span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      padding: 0.26rem 0.6rem;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+
+    /* ==================== FEATURED PROJECTS ==================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.65rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .project-category {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.28rem 0.65rem;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .project-complexity {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .project-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.55rem;
+    }
+
+    .project-card p {
+      font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-footer {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .project-footer span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      background: var(--surface-alt);
+      color: var(--text-primary);
+    }
+
+    /* ==================== CONTACT SECTION ==================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-item {
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 0.76rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-item strong {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 0.95rem;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-status {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+      border-radius: 9px;
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==================== RESPONSIVE BREAKPOINTS ==================== */
+    @media (max-width: 860px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero {
+        padding: 3.5rem 0 3.25rem;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: inline-flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== STICKY NAVIGATION BAR ==================== -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#home" class="brand">
+        <span class="brand-badge">MT</span>
+        <span>Mohsina Tayeba</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About &amp; Education</a>
+        <a href="#skills">Core Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle light or dark theme" title="Toggle Theme">
+          ☾
+        </button>
+        <button id="mobile-toggle" class="icon-btn mobile-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile Navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About &amp; Education</a>
+      <a href="#skills">Core Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span>B.Sc. in CSE • Daffodil International University (DIU)</span>
+          </div>
+
+          <h1>Hi, I’m <span>Mohsina Rahman Tayeba</span></h1>
+
+          <p class="hero-bio">
+            Computer Science &amp; Engineering undergraduate focused on building efficient, well-structured software. My foundation is rooted in <strong>Algorithms</strong>, with specialized expertise in <strong>Data Structures</strong> and clean <strong>Java</strong> programming.
+          </p>
+
+          <div class="hero-tags">
+            <span class="tag">Algorithms</span>
+            <span class="tag">Data Structures</span>
+            <span class="tag">Java OOP</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View Featured Projects</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+          </div>
+        </div>
+
+        <!-- Clean Java Code Card -->
+        <div class="code-card" aria-label="Java profile snippet">
+          <div class="code-header">
+            <div class="window-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <span>DeveloperProfile.java</span>
+          </div>
+          <pre class="code-body"><code><span class="kw">public class</span> <span class="cls">MohsinaTayeba</span> {
+    <span class="kw">private final</span> String university = <span class="str">"Daffodil International University"</span>;
+    <span class="kw">private final</span> String department = <span class="str">"Computer Science &amp; Engineering"</span>;
+
+    <span class="kw">public</span> String[] <span class="fn">coreStrengths</span>() {
+        <span class="kw">return new</span> String[] {
+            <span class="str">"Algorithm Design &amp; Complexity"</span>,
+            <span class="str">"Data Structures Specialization"</span>,
+            <span class="str">"Object-Oriented Java"</span>
+        };
+    }
+
+    <span class="cmt">// Prioritize optimal Time &amp; Space complexity</span>
+    <span class="kw">public void</span> <span class="fn">buildSolution</span>() {
+        analyze().chooseDataStructure().codeInJava();
+    }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT & EDUCATION SECTION ==================== -->
+    <section id="about" class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">01 // Background</span>
+          <h2 class="section-title">About &amp; Education</h2>
+          <p class="section-desc">
+            Combining academic rigor in computer science fundamentals with practical Java software development.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I am <strong>Mohsina Rahman Tayeba</strong>, an undergraduate student in the Department of Computer Science and Engineering (CSE) at <strong>Daffodil International University (DIU)</strong>.
+            </p>
+            <p>
+              My approach to software engineering starts with strong theoretical fundamentals. Rather than jumping straight into syntax, I focus on analyzing computational complexity, selecting optimal <strong>Data Structures</strong>, and implementing clean, modular solutions in <strong>Java</strong>.
+            </p>
+            <p>
+              Alongside algorithmic problem solving, I enjoy crafting clean, responsive web interfaces with <strong>HTML &amp; CSS</strong> to present technical concepts clearly.
+            </p>
+          </div>
+
+          <div class="edu-card">
+            <span class="edu-badge">Undergraduate Degree</span>
+            <h3>B.Sc. in Computer Science &amp; Engineering</h3>
+            <p class="edu-uni">Daffodil International University (DIU)</p>
+            <p style="font-size: 0.9rem;">
+              Focusing on core computer science foundations, structured problem solving, and object-oriented software design.
+            </p>
+            <div class="course-pills">
+              <span>Data Structures</span>
+              <span>Design &amp; Analysis of Algorithms</span>
+              <span>Object-Oriented Programming (Java)</span>
+              <span>Discrete Mathematics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CORE SKILLS & TECH STACK ==================== -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">02 // Capabilities</span>
+          <h2 class="section-title">Core Skills &amp; Tech Stack</h2>
+          <p class="section-desc">
+            Key technical domains I apply in coursework, coding challenges, and Java software projects.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">O(n)</div>
+            <h3>Algorithms</h3>
+            <p>Designing step-by-step computational solutions with rigorous time and space complexity analysis.</p>
+            <div class="skill-items">
+              <span>Sorting &amp; Searching</span>
+              <span>BFS &amp; DFS</span>
+              <span>Shortest Path</span>
+              <span>Dynamic Programming</span>
+              <span>Greedy</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">{ }</div>
+            <h3>Data Structures</h3>
+            <p>Specializing in organizing and indexing data efficiently for fast retrieval and memory safety.</p>
+            <div class="skill-items">
+              <span>Trees &amp; BST</span>
+              <span>Graphs</span>
+              <span>HashMaps</span>
+              <span>Heaps &amp; PriorityQueue</span>
+              <span>Stacks &amp; Queues</span>
+              <span>Linked Lists</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">JVM</div>
+            <h3>Java OOP</h3>
+            <p>Building modular, type-safe applications following core Object-Oriented Programming principles.</p>
+            <div class="skill-items">
+              <span>Classes &amp; Inheritance</span>
+              <span>Polymorphism</span>
+              <span>Java Collections</span>
+              <span>Generics</span>
+              <span>Exception Handling</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">&lt;/&gt;</div>
+            <h3>Problem Solving &amp; Web</h3>
+            <p>Translating logical edge cases into reliable code and clean, responsive frontend layouts.</p>
+            <div class="skill-items">
+              <span>Analytical Debugging</span>
+              <span>Big-O Optimization</span>
+              <span>HTML5</span>
+              <span>CSS3 &amp; Flexbox/Grid</span>
+              <span>Git &amp; VS Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURED PROJECTS SHOWCASE ==================== -->
+    <section id="projects" class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">03 // Portfolio Work</span>
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-desc">
+            Selected Java and algorithmic implementations highlighting clean architecture and data structure efficiency.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project-card">
+            <div>
+              <div class="project-top">
+                <span class="project-category">Algorithms</span>
+                <span class="project-complexity">O((V + E) log V)</span>
+              </div>
+              <h3>Graph Shortest-Path &amp; Traversal Engine</h3>
+              <p>
+                A console-based Java engine implementing Dijkstra’s Shortest Path, BFS, and DFS on weighted adjacency lists to compare traversal distances and node visit counts.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span>Java</span>
+              <span>PriorityQueue</span>
+              <span>Graph Theory</span>
+              <span>Adjacency List</span>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div>
+              <div class="project-top">
+                <span class="project-category">Data Structures</span>
+                <span class="project-complexity">Generic &lt;T&gt;</span>
+              </div>
+              <h3>Custom Generic Data Structure Toolkit</h3>
+              <p>
+                From-scratch Java implementations of Binary Search Trees (BST), Min-Heaps, Doubly Linked Lists, and Custom Hash Tables with unit-tested edge cases.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span>Java Generics</span>
+              <span>Binary Search Tree</span>
+              <span>Min-Heap</span>
+              <span>Hash Table</span>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div>
+              <div class="project-top">
+                <span class="project-category">Java OOP</span>
+                <span class="project-complexity">O(1) Lookup</span>
+              </div>
+              <h3>University Course &amp; Student Manager</h3>
+              <p>
+                An object-oriented Java management system using HashMaps for constant-time student ID lookups and prerequisite validation for CSE course enrollment.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span>Java OOP</span>
+              <span>HashMap</span>
+              <span>Collections</span>
+              <span>File I/O</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">04 // Get In Touch</span>
+          <h2 class="section-title">Contact</h2>
+          <p class="section-desc">
+            Feel free to reach out for Java collaborations, algorithmic problem-solving discussions, or academic networking.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div>
+            <p style="font-size: 0.96rem;">
+              I’m always open to connecting with fellow CSE students, developers, and mentors interested in algorithms, data structures, and clean Java engineering.
+            </p>
+            <div class="contact-list">
+              <div class="contact-item">
+                <span>NAME</span>
+                <strong>Mohsina Rahman Tayeba</strong>
+              </div>
+              <div class="contact-item">
+                <span>ACADEMIC AFFILIATION</span>
+                <strong>Department of CSE, Daffodil International University (DIU)</strong>
+              </div>
+              <div class="contact-item">
+                <span>CORE FOCUS</span>
+                <strong>Algorithms • Data Structures • Java Programming</strong>
+              </div>
+            </div>
+          </div>
+
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" required placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" required placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="4" required placeholder="Write your message for Mohsina..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            <div id="form-status" class="form-status" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Mohsina Rahman Tayeba • B.Sc. in CSE, Daffodil International University (DIU)</p>
+    </div>
+  </footer>
+
+  <!-- ==================== MINIMAL JAVASCRIPT ==================== -->
+  <script>
+    // 1. Light / Dark Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('mt-theme');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.textContent = '☀';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark');
+      themeToggle.textContent = isDark ? '☀' : '☾';
+      localStorage.setItem('mt-theme', isDark ? 'dark' : 'light');
+    });
+
+    // 2. Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileToggle.textContent = isOpen ? '✕' : '☰';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        mobileToggle.textContent = '☰';
+      });
+    });
+
+    // 3. Contact Form Inline Confirmation
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const sender = document.getElementById('name').value.trim();
+      formStatus.textContent = `Thank you, ${sender}! Your message has been received by Mohsina Rahman Tayeba.`;
+      formStatus.style.display = 'block';
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
